@@ -89,7 +89,7 @@ TIPOS = [
 ]
 
 
-@bot.tree.command(name="canal_criar", description="Cria um canal")
+@bot.tree.command(name="criar_canal", description="Cria um canal")
 @app_commands.describe(nome="Nome do canal", tipo="Texto ou voz", categoria="Categoria (opcional)")
 @app_commands.choices(tipo=TIPOS)
 @app_commands.checks.has_permissions(manage_channels=True)
@@ -104,7 +104,7 @@ async def canal_criar(interaction: discord.Interaction, nome: str, tipo: app_com
     await interaction.response.send_message(f"✅ Canal {canal.mention} criado.")
 
 
-@bot.tree.command(name="canal_apagar", description="Apaga um canal (pede confirmação)")
+@bot.tree.command(name="apagar_canal", description="Apaga um canal (pede confirmação)")
 @app_commands.describe(canal="Canal que será apagado")
 @app_commands.checks.has_permissions(manage_channels=True)
 @app_commands.checks.bot_has_permissions(manage_channels=True)
@@ -117,7 +117,7 @@ async def canal_apagar(interaction: discord.Interaction, canal: discord.abc.Guil
     await interaction.edit_original_response(content=f"🗑️ Canal **{nome}** apagado.", view=None)
 
 
-@bot.tree.command(name="canal_renomear", description="Renomeia um canal")
+@bot.tree.command(name="renomear_canal", description="Renomeia um canal")
 @app_commands.checks.has_permissions(manage_channels=True)
 @app_commands.checks.bot_has_permissions(manage_channels=True)
 @app_commands.guild_only()
@@ -126,7 +126,7 @@ async def canal_renomear(interaction: discord.Interaction, canal: discord.abc.Gu
     await interaction.response.send_message(f"✏️ Canal renomeado para **{novo_nome}**.")
 
 
-@bot.tree.command(name="categoria_criar", description="Cria uma categoria")
+@bot.tree.command(name="criar_categoria", description="Cria uma categoria")
 @app_commands.checks.has_permissions(manage_channels=True)
 @app_commands.checks.bot_has_permissions(manage_channels=True)
 @app_commands.guild_only()
@@ -135,7 +135,7 @@ async def categoria_criar(interaction: discord.Interaction, nome: str):
     await interaction.response.send_message(f"📁 Categoria **{cat.name}** criada.")
 
 
-@bot.tree.command(name="trancar", description="Impede todos de falarem no canal")
+@bot.tree.command(name="lock", description="Impede todos de falarem no canal")
 @app_commands.checks.has_permissions(manage_channels=True)
 @app_commands.checks.bot_has_permissions(manage_roles=True)
 @app_commands.guild_only()
@@ -145,7 +145,7 @@ async def trancar(interaction: discord.Interaction, canal: discord.TextChannel =
     await interaction.response.send_message(f"🔒 {canal.mention} trancado.")
 
 
-@bot.tree.command(name="destrancar", description="Libera o canal para todos")
+@bot.tree.command(name="unlock", description="Libera o canal para todos")
 @app_commands.checks.has_permissions(manage_channels=True)
 @app_commands.checks.bot_has_permissions(manage_roles=True)
 @app_commands.guild_only()
@@ -175,7 +175,7 @@ async def limpar(interaction: discord.Interaction, quantidade: app_commands.Rang
 
 
 # ======================== CARGOS ==========================
-@bot.tree.command(name="cargo_criar", description="Cria um cargo")
+@bot.tree.command(name="criar_cargo", description="Cria um cargo")
 @app_commands.describe(nome="Nome do cargo", cor="Cor em hex, ex: #ff00aa", mencionavel="Pode ser mencionado?")
 @app_commands.checks.has_permissions(manage_roles=True)
 @app_commands.checks.bot_has_permissions(manage_roles=True)
@@ -189,7 +189,7 @@ async def cargo_criar(interaction: discord.Interaction, nome: str, cor: str = "#
     await interaction.response.send_message(f"🎭 Cargo {cargo.mention} criado.")
 
 
-@bot.tree.command(name="cargo_apagar", description="Apaga um cargo (pede confirmação)")
+@bot.tree.command(name="apagar_cargo", description="Apaga um cargo (pede confirmação)")
 @app_commands.checks.has_permissions(manage_roles=True)
 @app_commands.checks.bot_has_permissions(manage_roles=True)
 @app_commands.guild_only()
@@ -203,7 +203,7 @@ async def cargo_apagar(interaction: discord.Interaction, cargo: discord.Role):
     await interaction.edit_original_response(content=f"🗑️ Cargo **{nome}** apagado.", view=None)
 
 
-@bot.tree.command(name="cargo_dar", description="Dá um cargo a um membro")
+@bot.tree.command(name="add_cargo", description="Dá um cargo a um membro")
 @app_commands.checks.has_permissions(manage_roles=True)
 @app_commands.checks.bot_has_permissions(manage_roles=True)
 @app_commands.guild_only()
@@ -216,7 +216,7 @@ async def cargo_dar(interaction: discord.Interaction, membro: discord.Member, ca
                                             allowed_mentions=discord.AllowedMentions.none())
 
 
-@bot.tree.command(name="cargo_tirar", description="Remove um cargo de um membro")
+@bot.tree.command(name="rm_cargo", description="Remove um cargo de um membro")
 @app_commands.checks.has_permissions(manage_roles=True)
 @app_commands.checks.bot_has_permissions(manage_roles=True)
 @app_commands.guild_only()
@@ -242,7 +242,7 @@ async def apelido(interaction: discord.Interaction, membro: discord.Member, novo
                                             allowed_mentions=discord.AllowedMentions.none())
 
 
-@bot.tree.command(name="expulsar", description="Expulsa um membro")
+@bot.tree.command(name="ban", description="Expulsa um membro")
 @app_commands.checks.has_permissions(kick_members=True)
 @app_commands.checks.bot_has_permissions(kick_members=True)
 @app_commands.guild_only()
@@ -264,7 +264,7 @@ async def banir(interaction: discord.Interaction, membro: discord.Member, motivo
     await interaction.response.send_message(f"🔨 {membro} banido. Motivo: {motivo}")
 
 
-@bot.tree.command(name="desbanir", description="Desbane pelo ID do usuário")
+@bot.tree.command(name="unban", description="Desbane pelo ID do usuário")
 @app_commands.checks.has_permissions(ban_members=True)
 @app_commands.checks.bot_has_permissions(ban_members=True)
 @app_commands.guild_only()
@@ -276,7 +276,7 @@ async def desbanir(interaction: discord.Interaction, user_id: str):
     await interaction.response.send_message(f"✅ <@{user_id}> desbanido.")
 
 
-@bot.tree.command(name="mutar", description="Silencia um membro (timeout) por X minutos")
+@bot.tree.command(name="mute", description="Silencia um membro (timeout) por X minutos")
 @app_commands.checks.has_permissions(moderate_members=True)
 @app_commands.checks.bot_has_permissions(moderate_members=True)
 @app_commands.guild_only()
